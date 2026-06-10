@@ -3,42 +3,327 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Berwarna</title>
+    <title>RG_ENGINE // Core Evaluation Matrix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Space+Grotesk:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
     <style>
         body {
-            /* Mengatur warna latar belakang menjadi biru gelap */
-            background-color: #2c3e50;
-            /* Mengatur warna teks menjadi putih agar kontras */
-            color: #ecf0f1;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #050505;
         }
-
-        h1 {
-            /* Memberi warna kuning cerah pada judul */
-            color: #f1c40f;
+        .font-display {
+            font-family: 'Space Grotesk', sans-serif;
         }
-
-        .box {
-            /* Kotak dengan warna aksen teal */
-            background-color: #1abc9c;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        .font-mono-tech {
+            font-family: 'Space Mono', monospace;
+        }
+        /* Efek hover border neon hijau untuk kelebihan */
+        .brutal-card-pros {
+            box-shadow: 0 0 0 1px #222, 0 4px 20px -2px rgba(16, 185, 129, 0.05);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .brutal-card-pros:hover {
+            box-shadow: 0 0 0 2px #10b981, 0 10px 30px -5px rgba(16, 185, 129, 0.2);
+            transform: translateY(-2px);
+        }
+        /* Efek hover border neon merah/pink untuk kekurangan */
+        .brutal-card-cons {
+            box-shadow: 0 0 0 1px #222, 0 4px 20px -2px rgba(244, 63, 94, 0.05);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .brutal-card-cons:hover {
+            box-shadow: 0 0 0 2px #f43f5e, 0 10px 30px -5px rgba(244, 63, 94, 0.2);
+            transform: translateY(-2px);
+        }
+        /* Custom scrollbar minimalis */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #222;
         }
     </style>
 </head>
-<body>
+<body class="text-neutral-200 min-h-screen selection:bg-rose-500 selection:text-white overflow-x-hidden">
 
-    <h1>Halo, Ikbal!</h1>
-    <div class="box">
-        <p>Ini adalah tampilan index.html di branch <strong>add-color</strong>.</p>
-    </div>
+    <header class="border-b border-neutral-900 py-16 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(#111_1px,transparent_1px)] [background-size:16px_16px] opacity-40"></div>
+        <div class="max-w-5xl mx-auto relative z-10">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded border border-neutral-800 bg-neutral-900/50 text-[10px] font-mono-tech text-neutral-400 uppercase tracking-widest mb-4">
+                <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span> SYSTEM_EVALUATION_LOG
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold font-display tracking-tight text-white uppercase">
+                Rogue Engine <span class="text-neutral-600 font-light">//</span> Analisis Teknis
+            </h1>
+            <p class="text-neutral-400 mt-3 max-w-xl text-sm font-medium leading-relaxed">
+                Evaluasi objektif mengenai arsitektur pengembangan game berbasis visual web. Penilaian difokuskan pada fungsionalitas dan performa inti.
+            </p>
+        </div>
+    </header>
 
+    <main class="max-w-5xl mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+            
+            <div class="space-y-4">
+                <div class="flex items-center gap-2 px-1 mb-2">
+                    <span class="font-mono-tech text-xs bg-emerald-950/50 text-emerald-400 border border-emerald-900/50 px-2 py-0.5 rounded">ADVANTAGES</span>
+                    <h2 class="text-sm font-bold font-mono-tech tracking-wider text-neutral-400 uppercase">// Keunggulan Performa</h2>
+                </div>
+
+                <div class="brutal-card-pros bg-neutral-950 border border-neutral-900 rounded-xl p-5 group">
+                    <div class="text-emerald-400 font-mono-tech text-xs mb-1.5 font-bold">[ 01 // WEB_OPTIMIZED ]</div>
+                    <h3 class="text-white font-display font-bold text-base mb-2 group-hover:text-emerald-400 transition-colors">Fokus Penuh pada Ekosistem Web</h3>
+                    <p class="text-neutral-400 text-xs leading-relaxed">
+                        Arsitekturnya dirancang khusus untuk platform web tanpa beban kompilasi lintas konsol atau native mobile. Hal ini memungkinkan engine mengeksploitasi performa runtime browser secara optimal.
+                    </p>
+                </div>
+
+                <div class="brutal-card-pros bg-neutral-950 border border-neutral-900 rounded-xl p-5 group" onclick="toggleDetail('ui-tip')">
+                    <div class="text-emerald-400 font-mono-tech text-xs mb-1.5 font-bold">[ 02 // FLEXIBLE_UI ]</div>
+                    <h3 class="text-white font-display font-bold text-base mb-2 group-hover:text-emerald-400 transition-colors">Integrasi Antarmuka yang Efisien</h3>
+                    <p class="text-neutral-400 text-xs leading-relaxed">
+                        Menghindari kompleksitas sistem UI konvensional bawaan engine game pada umumnya. Pengembangan antarmuka dapat memanfaatkan teknologi web modern seperti Tailwind CSS, HTML, Vue, atau React langsung di atas canvas 3D.
+                    </p>
+                    <div id="ui-tip" class="hidden mt-3 pt-3 border-t border-neutral-900 text-[11px] font-mono-tech text-neutral-500">
+                        ⚡ Tip: Gunakan elemen HTML dengan posisi absolut di atas viewport z-index untuk kontrol responsif yang presisi.
+                    </div>
+                </div>
+
+                <div class="brutal-card-pros bg-neutral-950 border border-neutral-900 rounded-xl p-5 group">
+                    <div class="text-emerald-400 font-mono-tech text-xs mb-1.5 font-bold">[ 03 // LIGHTWEIGHT_OUTPUT ]</div>
+                    <h3 class="text-white font-display font-bold text-base mb-2 group-hover:text-emerald-400 transition-colors">Ukuran Build Ringan & Loading Responsif</h3>
+                    <p class="text-neutral-400 text-xs leading-relaxed">
+                        Hasil akhir kompilasi diekspor menjadi file JavaScript dan standar glTF bersih tanpa mengikutsertakan runtime engine yang besar. Pendekatan ini mengoptimalkan kecepatan loading awal dan retensi pengguna.
+                    </p>
+                </div>
+
+                <div class="brutal-card-pros bg-neutral-950 border border-neutral-900 rounded-xl p-5 group">
+                    <div class="text-emerald-400 font-mono-tech text-xs mb-1.5 font-bold">[ 04 // SPEED_ITERATION ]</div>
+                    <h3 class="text-white font-display font-bold text-base mb-2 group-hover:text-emerald-400 transition-colors">Proses Iterasi Cepat</h3>
+                    <p class="text-neutral-400 text-xs leading-relaxed">
+                        Didukung oleh sistem bundling modern berbasis Vite. Menghilangkan waktu tunggu akibat siklus Domain Reloading skrip; perubahan logika TypeScript dapat langsung disuntikkan secara instan (Hot Module Replacement) ke browser target.
+                    </p>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <div class="flex items-center gap-2 px-1 mb-2">
+                    <span class="font-mono-tech text-xs bg-rose-950/50 text-rose-400 border border-rose-900/50 px-2 py-0.5 rounded">LIMITATIONS</span>
+                    <h2 class="text-sm font-bold font-mono-tech tracking-wider text-neutral-400 uppercase">// Batasan Sistem</h2>
+                </div>
+
+                <div class="brutal-card-cons bg-neutral-950 border border-neutral-900 rounded-xl p-5 group">
+                    <div class="text-rose-400 font-mono-tech text-xs mb-1.5 font-bold">[ 01 // RAW_ECOSYSTEM ]</div>
+                    <h3 class="text-white font-display font-bold text-base mb-2 group-hover:text-rose-400 transition-colors">Keterbatasan Asset Store Integrasi</h3>
+                    <p class="text-neutral-400 text-xs leading-relaxed">
+                        Belum memiliki ekosistem marketplace aset yang menyediakan sistem gameplay siap pakai. Developer perlu mengelola, mengadaptasi, dan menyinkronkan sendiri aset model 3D standar glTF/GLB dari sumber eksternal.
+                    </p>
+                </div>
+
+                <div class="brutal-card-cons bg-neutral-950 border border-neutral-900 rounded-xl p-5 group">
+                    <div class="text-rose-400 font-mono-tech text-xs mb-1.5 font-bold">[ 02 // BAREBONE_FEATURES ]</div>
+                    <h3 class="text-white font-display font-bold text-base mb-2 group-hover:text-rose-400 transition-colors">Kekurangan Fitur Bawaan (Out-of-the-Box)</h3>
+                    <p class="text-neutral-400 text-xs leading-relaxed">
+                        Sistem krusial seperti physics engine spesifik, kalkulasi collision tingkat lanjut, hingga dynamic lighting bake tidak tersedia secara default. Komponen-komponen tersebut perlu diintegrasikan dan dikonfigurasi secara manual.
+                    </p>
+                </div>
+
+                <div class="brutal-card-cons bg-neutral-950 border border-neutral-900 rounded-xl p-5 group">
+                    <div class="text-rose-400 font-mono-tech text-xs mb-1.5 font-bold">[ 03 // THREE_DEPENDENCY ]</div>
+                    <h3 class="text-white font-display font-bold text-base mb-2 group-hover:text-rose-400 transition-colors">Ketergantungan pada Arsitektur Three.js</h3>
+                    <p class="text-neutral-400 text-xs leading-relaxed">
+                        Rogue Engine beroperasi sebagai lapisan abstraksi visual. Untuk memanipulasi shader material yang kompleks atau render pass kustom, pemahaman mendalam terhadap arsitektur WebGL internal Three.js tetap diperlukan.
+                    </p>
+                </div>
+
+                <div class="brutal-card-cons bg-neutral-950 border border-neutral-900 rounded-xl p-5 group">
+                    <div class="text-rose-400 font-mono-tech text-xs mb-1.5 font-bold">[ 04 // CODE_FIRST ]</div>
+                    <h3 class="text-white font-display font-bold text-base mb-2 group-hover:text-rose-400 transition-colors">Pendekatan Berbasis Code-First</h3>
+                    <p class="text-neutral-400 text-xs leading-relaxed">
+                        Tidak direkomendasikan untuk alur kerja yang sangat bergantung pada fungsionalitas visual drag-and-drop. Proses pengembangan menuntut pemahaman arsitektur perangkat lunak yang matang dan manajemen paket NPM mandiri.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <section class="mt-20">
+            <div class="border-b border-neutral-800 pb-4 mb-6">
+                <span class="text-xs font-mono-tech text-neutral-500 uppercase tracking-widest">// ARCHITECTURE COMPARE</span>
+                <h3 class="text-xl font-bold font-display text-white mt-1">Perbandingan Langsung: Unity vs Rogue Engine</h3>
+            </div>
+
+            <div class="overflow-x-auto border border-neutral-900 rounded-xl bg-neutral-950">
+                <table class="w-full text-left border-collapse min-w-[700px]">
+                    <thead>
+                        <tr class="border-b border-neutral-900 bg-neutral-900/20 text-neutral-400 font-mono-tech text-xs">
+                            <th class="p-4 uppercase w-1/4">Parameter</th>
+                            <th class="p-4 uppercase text-blue-400 border-l border-neutral-900">Unity Matrix</th>
+                            <th class="p-4 uppercase text-pink-400 border-l border-neutral-900">Rogue Engine Matrix</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-neutral-900 text-xs font-medium text-neutral-300">
+                        <tr class="hover:bg-neutral-900/20 transition-colors">
+                            <td class="p-4 font-mono-tech text-neutral-400">Target Platform Utama</td>
+                            <td class="p-4 border-l border-neutral-900">Lintas Platform (PC, Konsol, Mobile, Web)</td>
+                            <td class="p-4 border-l border-neutral-900 text-white font-semibold">Fokus Web Browser (WebGL / HTML5)</td>
+                        </tr>
+                        <tr class="hover:bg-neutral-900/20 transition-colors">
+                            <td class="p-4 font-mono-tech text-neutral-400">Bahasa / Ekosistem</td>
+                            <td class="p-4 border-l border-neutral-900">C# (.NET / Unity Package Manager)</td>
+                            <td class="p-4 border-l border-neutral-900 text-white font-semibold">TypeScript / JavaScript (NPM Node.js)</td>
+                        </tr>
+                        <tr class="hover:bg-neutral-900/20 transition-colors">
+                            <td class="p-4 font-mono-tech text-neutral-400">Ukuran Build Web</td>
+                            <td class="p-4 border-l border-neutral-900 text-amber-500">Relatif besar karena menyertakan WebAssembly runtime</td>
+                            <td class="p-4 border-l border-neutral-900 text-emerald-400 font-semibold">Ringan (skala Kilobytes hingga beberapa Megabytes standar web)</td>
+                        </tr>
+                        <tr class="hover:bg-neutral-900/20 transition-colors">
+                            <td class="p-4 font-mono-tech text-neutral-400">Siklus Kompilasi Kode</td>
+                            <td class="p-4 border-l border-neutral-900 text-amber-500">Domain Reload (Editor memproses ulang memori setiap simpan kode)</td>
+                            <td class="p-4 border-l border-neutral-900 text-emerald-400 font-semibold">Instant Hot Reload (Live refresh via bundling Vite)</td>
+                        </tr>
+                        <tr class="hover:bg-neutral-900/20 transition-colors">
+                            <td class="p-4 font-mono-tech text-neutral-400">Sistem UI</td>
+                            <td class="p-4 border-l border-neutral-900">UI Toolkit / Canvas (Proprietary & Terstruktur)</td>
+                            <td class="p-4 border-l border-neutral-900 text-white font-semibold">Native HTML5 / Tailwind CSS (Sangat Fleksibel)</td>
+                        </tr>
+                        <tr class="hover:bg-neutral-900/20 transition-colors">
+                            <td class="p-4 font-mono-tech text-neutral-400">Modul Fitur Utama</td>
+                            <td class="p-4 border-l border-neutral-900 text-emerald-400">Komprehensif (Physics, State Machine, Audio Terintegrasi)</td>
+                            <td class="p-4 border-l border-neutral-900 text-amber-500">Minimalis (Komponen eksternal diintegrasikan via NPM)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="mt-20 relative">
+            <div class="border-b border-neutral-800 pb-4 mb-6">
+                <span class="text-xs font-mono-tech text-rose-500 uppercase tracking-widest">// ARCHITECTURAL_ANALYSIS</span>
+                <h3 class="text-xl font-bold font-display text-white mt-1">Komparasi Granular & Infrastruktur</h3>
+                <p class="text-neutral-500 text-xs mt-1">Analisis mendalam dari manajemen aset tingkat mikro hingga skalabilitas proyek dan deployment.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="border border-neutral-900 bg-neutral-950 p-5 rounded-xl space-y-4">
+                    <div class="font-mono-tech text-xs text-neutral-500 uppercase tracking-wider">// 01. LEVEL MIKRO</div>
+                    
+                    <div class="space-y-1">
+                        <h4 class="text-xs font-bold text-white uppercase font-mono-tech">Manajemen Aset 3D</h4>
+                        <p class="text-neutral-400 text-[11px] leading-relaxed">
+                            <span class="text-blue-400">Unity:</span> Mengonversi format proprietary (`.FBX`) menjadi representasi biner internal yang membutuhkan proses import.<br>
+                            <span class="text-pink-400">Rogue:</span> Membaca langsung struktur `.glTF` / `.glb` standar web secara native tanpa kompilasi tambahan.
+                        </p>
+                    </div>
+
+                    <div class="space-y-1">
+                        <h4 class="text-xs font-bold text-white uppercase font-mono-tech">Debugging Logika</h4>
+                        <p class="text-neutral-400 text-[11px] leading-relaxed">
+                            <span class="text-blue-400">Unity:</span> Bergantung pada koneksi eksternal debugger (VS Code / Rider) dengan inisialisasi memori khusus.<br>
+                            <span class="text-pink-400">Rogue:</span> Debugging langsung memanfaatkan Browser DevTools untuk pelacakan call stack dan inspeksi variabel secara real-time.
+                        </p>
+                    </div>
+
+                    <div class="space-y-1">
+                        <h4 class="text-xs font-bold text-white uppercase font-mono-tech">Struktur Skrip Elemen</h4>
+                        <p class="text-neutral-400 text-[11px] leading-relaxed">
+                            <span class="text-blue-400">Unity:</span> Komponen terkecil wajib mewarisi arsitektur kelas boilerplate dari `MonoBehaviour`.<br>
+                            <span class="text-pink-400">Rogue:</span> Berbasis objek fungsional dan dekorator TypeScript yang lebih ringkas dan modular.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="border border-neutral-900 bg-neutral-950 p-5 rounded-xl space-y-4">
+                    <div class="font-mono-tech text-xs text-neutral-500 uppercase tracking-wider">// 02. LEVEL INTERMEDIATE</div>
+                    
+                    <div class="space-y-1">
+                        <h4 class="text-xs font-bold text-white uppercase font-mono-tech">Manajemen Memori</h4>
+                        <p class="text-neutral-400 text-[11px] leading-relaxed">
+                            <span class="text-blue-400">Unity:</span> Menggunakan Garbage Collection C# yang terkelola, namun memerlukan optimasi ekstra pada alokasi heap dinamis di lingkungan WebGL.<br>
+                            <span class="text-pink-400">Rogue:</span> Mengandalkan V8 Engine browser secara langsung. Alokasi memori efisien, namun developer bertanggung jawab penuh melakukan `.dispose()` pada geometri Three.js.
+                        </p>
+                    </div>
+
+                    <div class="space-y-1">
+                        <h4 class="text-xs font-bold text-white uppercase font-mono-tech">Integrasi Package</h4>
+                        <p class="text-neutral-400 text-[11px] leading-relaxed">
+                            <span class="text-blue-400">Unity:</span> Memanfaatkan package internal Unity atau asset store khusus (.unitypackage) yang terikat versi engine.<br>
+                            <span class="text-pink-400">Rogue:</span> Didukung penuh oleh ekosistem open-source global melalui manajemen dependensi standard <code class="text-pink-400 bg-neutral-900 px-0.5 rounded">npm install</code>.
+                        </p>
+                    </div>
+
+                    <div class="space-y-1">
+                        <h4 class="text-xs font-bold text-white uppercase font-mono-tech">Rendering Pipeline</h4>
+                        <p class="text-neutral-400 text-[11px] leading-relaxed">
+                            <span class="text-blue-400">Unity:</span> Menggunakan abstraksi visual seperti URP/HDRP Shader Graph untuk modifikasi material.<br>
+                            <span class="text-pink-400">Rogue:</span> Berbasis Three.js Material API, membuka fleksibilitas kustomisasi shader tingkat rendah menggunakan kode GLSL murni.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="border border-neutral-900 bg-neutral-950 p-5 rounded-xl space-y-4">
+                    <div class="font-mono-tech text-xs text-neutral-500 uppercase tracking-wider">// 03. LEVEL MAKRO</div>
+                    
+                    <div class="space-y-1">
+                        <h4 class="text-xs font-bold text-white uppercase font-mono-tech">Skalabilitas Proyek</h4>
+                        <p class="text-neutral-400 text-[11px] leading-relaxed">
+                            <span class="text-blue-400">Unity:</span> Sangat unggul untuk manajemen aset berskala masif dan kolaborasi tim multi-disiplin berkat kematangan sistem Prefab.<br>
+                            <span class="text-pink-400">Rogue:</span> Sangat efektif untuk tim skala kecil atau *rapid prototyping* yang mengutamakan kecepatan pengembangan dan fleksibilitas kode.
+                        </p>
+                    </div>
+
+                    <div class="space-y-1">
+                        <h4 class="text-xs font-bold text-white uppercase font-mono-tech">Hosting & Deployment</h4>
+                        <p class="text-neutral-400 text-[11px] leading-relaxed">
+                            <span class="text-blue-400">Unity:</span> Memerlukan konfigurasi server khusus (seperti kompresi Brotli/Gzip) agar file WebAssembly yang besar dapat diunduh secara lancar.<br>
+                            <span class="text-pink-400">Rogue:</span> Hasil kompilasi berupa static files standar, sehingga dapat dideploy secara instan ke platform seperti Vercel, Netlify, atau GitHub Pages.
+                        </p>
+                    </div>
+
+                    <div class="space-y-1">
+                        <h4 class="text-xs font-bold text-white uppercase font-mono-tech">User Experience Konversi</h4>
+                        <p class="text-neutral-400 text-[11px] leading-relaxed">
+                            <span class="text-blue-400">Unity:</span> Memiliki risiko *bounce rate* jika inisialisasi awal engine memakan waktu terlalu lama pada perangkat dengan spesifikasi rendah.<br>
+                            <span class="text-pink-400">Rogue:</span> Alur retensi lebih mulus karena aset dan logika game langsung dirender oleh browser secara efisien sejak awal akses.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="mt-16 border border-neutral-900 bg-neutral-950 p-6 rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <div class="text-xs font-mono-tech text-neutral-400 font-bold uppercase tracking-wider">// SYSTEM_SUMMARY_CONCLUSION</div>
+                <p class="text-neutral-500 text-xs mt-1 max-w-xl">
+                    Engine ini menukar kelengkapan modul siap pakai dengan kendali kode yang presisi dan arsitektur yang ringan. Pendekatan ideal untuk pengembangan web interaktif berkinerja tinggi.
+                </p>
+            </div>
+            <div class="text-[10px] font-mono-tech text-neutral-600 bg-neutral-900 border border-neutral-800/60 px-3 py-1.5 rounded uppercase select-none tracking-widest">
+                technical_review_verified
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-20 border-t border-neutral-900 py-8 text-center text-xs font-mono-tech text-neutral-600">
+        HTML_LOG_GENERATED // CORE_ARCHITECTURE_V2 // 2026
+    </footer>
+
+    <script>
+        function toggleDetail(id) {
+            const el = document.getElementById(id);
+            if(el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
+            }
+        }
+    </script>
 </body>
 </html>
