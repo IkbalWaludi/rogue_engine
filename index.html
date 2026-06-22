@@ -1,281 +1,36 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>AR Real Marker Tracking</title>
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+    <title>Simple Web AR</title>
+    <!-- Import A-Frame for 3D rendering -->
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <!-- Import AR.js for camera tracking and marker detection -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        /* CSS to ensure the AR camera view fills the whole screen */
         body {
+            margin: 0;
             overflow: hidden;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #121214;
         }
-
-        #permission-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: radial-gradient(circle, #1a1a24 20%, #0c0c10 80%);
-            z-index: 9999999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-            transition: opacity 0.4s ease;
-        }
-
-        #permission-overlay h2 { color: #fff; font-size: 20px; margin-bottom: 10px; }
-        #permission-overlay p { color: #888; font-size: 14px; max-width: 280px; margin-bottom: 25px; line-height: 1.4; }
-
-        .start-btn {
-            background: #00ffcc;
-            color: #0c0c10;
-            border: none;
-            padding: 16px 32px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            letter-spacing: 0.5px;
-            box-shadow: 0 8px 24px rgba(0, 255, 204, 0.3);
-            transition: all 0.2s ease;
-        }
-        .start-btn:active { transform: scale(0.96); }
-        .start-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        #status-text {
-            margin-top: 14px;
-            font-size: 12px;
-            color: #555;
-            letter-spacing: 0.5px;
-            min-height: 18px;
-            max-width: 280px;
-            line-height: 1.5;
-        }
-
-        #status-text.error { color: #ff5555; }
-
-        /* Loading bar */
-        #loading-bar-wrap {
-            width: 200px;
-            height: 4px;
-            background: #1e1e2a;
-            border-radius: 4px;
-            margin-top: 16px;
-            overflow: hidden;
-            display: none;
-        }
-        #loading-bar {
-            height: 100%;
-            width: 0%;
-            background: #00ffcc;
-            border-radius: 4px;
-            transition: width 0.3s ease;
-        }
-
-        #ar-marker-hud {
-            position: fixed;
-            top: 15vh; left: 50%;
-            transform: translateX(-50%);
-            z-index: 999998;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            background: rgba(10, 10, 14, 0.85);
-            padding: 16px;
-            border-radius: 20px;
-            border: 2px solid #ff3333;
-            box-shadow: 0 8px 32px rgba(255, 51, 51, 0.15);
-            width: max-content;
-            max-width: 85vw;
-            pointer-events: none;
-            backdrop-filter: blur(4px);
-            transition: all 0.3s ease;
-            opacity: 0;
-        }
-        #ar-marker-hud.active { opacity: 1; }
-        #ar-marker-hud img { width: 65px; height: 65px; object-fit: cover; border-radius: 12px; border: 2px solid rgba(255,255,255,0.2); transition: border-color 0.3s ease; }
-        .info-wrapper { display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .title-text { font-size: 9px; letter-spacing: 1.5px; color: #888; font-weight: 700; margin-bottom: 2px; }
-        #similarity-text { font-size: 16px; font-weight: 800; color: #ff3333; letter-spacing: 0.5px; transition: color 0.3s ease; }
     </style>
 </head>
 <body>
-
-    <div id="permission-overlay">
-        <h2>Aplikasi AR Kamera</h2>
-        <p>Klik tombol di bawah untuk mengaktifkan kamera AR.</p>
-        <button id="start-ar-btn" class="start-btn">AKTIFKAN KAMERA AR</button>
-        <div id="loading-bar-wrap"><div id="loading-bar"></div></div>
-        <div id="status-text"></div>
-    </div>
-
-    <div id="ar-marker-hud">
-        <img id="marker-preview" src="https://picsum.photos/150" alt="Marker Preview">
-        <div class="info-wrapper">
-            <span class="title-text">SCANNING TARGET</span>
-            <span id="similarity-text">LOST: 0%</span>
-        </div>
-    </div>
-
-    <!--
-        PENTING: Ganti path imageTargetSrc sesuai lokasi file .mind kamu.
-        Contoh jika ada di root repo: ./target.mind
-        Contoh jika ada di folder assets: ./assets/target.mind
-    -->
-    <a-scene id="ar-scene"
-             mindar-image="imageTargetSrc: ./target.mind; autoStart: false; uiScanning: no;"
-             embedded
-             color-space="sRGB"
-             renderer="colorManagement: true, physicallyCorrectLights"
-             vr-mode-ui="enabled: false"
-             device-orientation-permission-ui="enabled: false">
+    <!-- Define the AR scene and enable tracking -->
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
         
-        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-        <a-entity id="example-target" mindar-image-target="targetIndex: 0"></a-entity>
+        /* Use the standard "Hiro" marker anchor */
+        <a-marker preset="hiro">
+            <!-- Render a spinning 3D box over the physical marker -->
+            <a-box position="0 0.5 0" 
+                   material="color: #4CC3D9; opacity: 0.8;"
+                   animation="property: rotation; to: 0 360 0; loop: true; dur: 5000">
+            </a-box>
+        </a-marker>
+
+        <!-- Define the default scene camera -->
+        
     </a-scene>
-
-    <script>
-        const overlay       = document.getElementById('permission-overlay');
-        const hud           = document.getElementById('ar-marker-hud');
-        const text          = document.getElementById('similarity-text');
-        const imgBorder     = document.getElementById('marker-preview');
-        const sceneEl       = document.querySelector('#ar-scene');
-        const targetEl      = document.querySelector('#example-target');
-        const startBtn      = document.getElementById('start-ar-btn');
-        const statusText    = document.getElementById('status-text');
-        const loadingBarWrap = document.getElementById('loading-bar-wrap');
-        const loadingBar    = document.getElementById('loading-bar');
-
-        // ── STEP 1: Verifikasi file target.mind bisa diakses ─────────────────────
-        // Ini mendeteksi masalah 404 sebelum user klik tombol
-        fetch('./target.mind', { method: 'HEAD' })
-            .then(res => {
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                console.log('[AR] target.mind ditemukan ✓');
-            })
-            .catch(err => {
-                console.error('[AR] target.mind tidak ditemukan:', err);
-                statusText.classList.add('error');
-                statusText.innerText = '⚠️ File target.mind tidak ditemukan.\nPastikan file sudah di-push ke repo.';
-                startBtn.disabled = true;
-            });
-
-        // ── STEP 2: Tombol langsung aktif, tidak tunggu renderstart ───────────────
-        startBtn.addEventListener('click', () => {
-            startBtn.disabled = true;
-            startBtn.innerText = 'MEMUAT...';
-            statusText.classList.remove('error');
-            loadingBarWrap.style.display = 'block';
-            animateLoadingBar();
-
-            // Polling dengan timeout lebih panjang (10 detik)
-            tryStartAR(0);
-        });
-
-        let loadingInterval = null;
-        function animateLoadingBar() {
-            let w = 0;
-            loadingInterval = setInterval(() => {
-                // Bar naik pelan sampai 90%, sisanya tunggu sistem siap
-                if (w < 90) { w += 1; loadingBar.style.width = w + '%'; }
-            }, 100);
-        }
-
-        function tryStartAR(attempt) {
-            const MAX_ATTEMPTS = 100;  // 100 x 100ms = 10 detik
-            const INTERVAL_MS  = 100;
-
-            const messages = [
-                { at: 0,  msg: 'Memuat library AR...' },
-                { at: 20, msg: 'Memproses file marker...' },
-                { at: 50, msg: 'Menginisialisasi sistem...' },
-                { at: 80, msg: 'Hampir siap...' },
-            ];
-            const m = messages.filter(x => x.at === attempt);
-            if (m.length) statusText.innerText = m[0].msg;
-
-            const arSystem = sceneEl.systems && sceneEl.systems['mindar-image-system'];
-
-            if (arSystem) {
-                statusText.innerText = 'Meminta izin kamera...';
-                loadingBar.style.width = '95%';
-                clearInterval(loadingInterval);
-
-                try {
-                    arSystem.start();
-                } catch (err) {
-                    console.error('[AR] arSystem.start() error:', err);
-                    resetButton('Gagal memulai sistem AR: ' + err.message);
-                }
-                return;
-            }
-
-            if (attempt >= MAX_ATTEMPTS) {
-                clearInterval(loadingInterval);
-                // Coba diagnosa masalah
-                const diagnosis = diagnoseProblem();
-                resetButton(diagnosis);
-                return;
-            }
-
-            setTimeout(() => tryStartAR(attempt + 1), INTERVAL_MS);
-        }
-
-        function diagnoseProblem() {
-            // Cek apakah MindAR ter-load
-            if (typeof window.MINDAR === 'undefined' && !document.querySelector('[mindar-image]')) {
-                return '⚠️ Library MindAR gagal dimuat. Cek koneksi internet.';
-            }
-            return '⚠️ Sistem AR timeout. Kemungkinan file target.mind bermasalah atau koneksi lambat. Coba reload.';
-        }
-
-        function resetButton(msg) {
-            clearInterval(loadingInterval);
-            loadingBarWrap.style.display = 'none';
-            loadingBar.style.width = '0%';
-            startBtn.disabled = false;
-            startBtn.innerText = 'COBA LAGI';
-            statusText.classList.add('error');
-            statusText.innerText = msg || '';
-        }
-
-        // ── EVENT AR ──────────────────────────────────────────────────────────────
-
-        sceneEl.addEventListener('arReady', () => {
-            clearInterval(loadingInterval);
-            loadingBar.style.width = '100%';
-            setTimeout(() => {
-                overlay.style.opacity = '0';
-                overlay.style.pointerEvents = 'none';
-                hud.classList.add('active');
-            }, 300);
-        });
-
-        sceneEl.addEventListener('arError', (e) => {
-            console.error('[AR] arError:', e);
-            resetButton('');
-            alert('Kamera gagal diakses.\nPastikan halaman dibuka via HTTPS dan izin kamera diberikan.');
-        });
-
-        // ── DETEKSI TARGET ────────────────────────────────────────────────────────
-
-        targetEl.addEventListener('targetFound', () => updateUI(98, '#00ffcc'));
-        targetEl.addEventListener('targetLost',  () => updateUI(0,  '#ff3333'));
-
-        function updateUI(percent, color) {
-            text.innerText              = percent > 0 ? `MATCH: ${percent}%` : 'LOST: 0%';
-            text.style.color            = color;
-            hud.style.borderColor       = color;
-            imgBorder.style.borderColor = percent > 0 ? color + '80' : 'rgba(255,255,255,0.2)';
-            hud.style.boxShadow         = `0 8px 32px ${color}26`;
-        }
-    </script>
 </body>
 </html>
